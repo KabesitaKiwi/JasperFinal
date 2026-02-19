@@ -6,100 +6,24 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="src/libs/com.lowagie.text-2.1.7.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/commons-beanutils-1.9.3.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/commons-collections-3.2.1-1.0.0.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/commons-collections-3.2.2.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/commons-collections4-4.4.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/commons-collections4-4.4-javadoc.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/commons-collections4-4.4-sources.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/commons-collections4-4.4-tests.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/commons-collections4-4.4-test-sources.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/commons-digester-2.1.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/commons-logging-1.2.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/jasperreports-6.16.0.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/jasperreports-fonts-6.3.1.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/jasperreports-functions-6.3.1.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/jcommon-1.0.23.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/jcommon-xml-1.0.23.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/jfreechart-1.0.19.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/joda-time-2.9.9.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/libs/mysql-connector-java-8.0.22.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="src/libs/com.lowagie.text-2.1.7.jar"/>
+	<classpathentry kind="lib" path="src/libs/commons-beanutils-1.9.3.jar"/>
+	<classpathentry kind="lib" path="src/libs/commons-collections-3.2.1-1.0.0.jar"/>
+	<classpathentry kind="lib" path="src/libs/commons-collections-3.2.2.jar"/>
+	<classpathentry kind="lib" path="src/libs/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="src/libs/commons-collections4-4.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/libs/commons-collections4-4.4-sources.jar"/>
+	<classpathentry kind="lib" path="src/libs/commons-collections4-4.4-tests.jar"/>
+	<classpathentry kind="lib" path="src/libs/commons-collections4-4.4-test-sources.jar"/>
+	<classpathentry kind="lib" path="src/libs/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="src/libs/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="src/libs/jasperreports-6.16.0.jar"/>
+	<classpathentry kind="lib" path="src/libs/jasperreports-fonts-6.3.1.jar"/>
+	<classpathentry kind="lib" path="src/libs/jasperreports-functions-6.3.1.jar"/>
+	<classpathentry kind="lib" path="src/libs/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="src/libs/jcommon-xml-1.0.23.jar"/>
+	<classpathentry kind="lib" path="src/libs/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="src/libs/joda-time-2.9.9.jar"/>
+	<classpathentry kind="lib" path="src/libs/mysql-connector-java-8.0.22.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

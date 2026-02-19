@@ -1,31 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TripulacionPorNave" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9b54c4e9-5508-425a-b386-f4f072eb8473">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TripulacionPorNave" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4f686733-4f9e-4a6c-9477-94363365439a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FlotaEspacial"/>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[SELECT n.nombre_nave, t.nombre_tripulante, t.rango 
+                 FROM naves_espaciales n 
+                 INNER JOIN tripulantes t ON n.id_nave = t.id_nave 
+                 ORDER BY n.nombre_nave ASC]]>
 	</queryString>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
+	<field name="nombre_nave" class="java.lang.String"/>
+	<field name="nombre_tripulante" class="java.lang.String"/>
+	<field name="rango" class="java.lang.String"/>
+	<group name="Group_Nave">
+		<groupExpression><![CDATA[$F{nombre_nave}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="10" width="555" height="25" backcolor="#336699" uuid="2a5840d4-1a6c-4f76-9051-78936997e3a3"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<textField>
+					<reportElement x="10" y="10" width="535" height="25" forecolor="#FFFFFF" uuid="d9e8432a-7c6d-4d40-b6f1-623805f4e192"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["NAVE: " + $F{nombre_nave}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="60">
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="40" uuid="885065a2-3067-4581-9f93-41c034934149"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISTRIBUCIÓN DE TRIPULACIÓN POR NAVE]]></text>
+			</staticText>
+		</band>
 	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="25">
+			<staticText>
+				<reportElement x="50" y="0" width="250" height="20" uuid="5519888b-1579-4458-97f3-c59129598822"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DEL TRIPULANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="200" height="20" uuid="7068388b-1579-4458-97f3-c59129598822"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RANGO]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="20">
+			<textField>
+				<reportElement x="50" y="0" width="250" height="15" uuid="1e813956-f6d3-487b-a249-14a044738743"/>
+				<textFieldExpression><![CDATA[$F{nombre_tripulante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="200" height="15" uuid="39c065f4-386f-4770-802c-474c76741762"/>
+				<textFieldExpression><![CDATA[$F{rango}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="50" y="17" width="450" height="1" forecolor="#CCCCCC" uuid="9b7d90e6-5917-4638-958b-960249c5e32b"/>
+			</line>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="30">
+			<textField>
+				<reportElement x="450" y="10" width="100" height="20" uuid="42813956-f6d3-487b-a249-14a044738743"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pág. " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

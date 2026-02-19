@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tripulacion_por_rango" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c3c7c9e-02b0-4db6-9b0c-ef2a2f1b2001">
+	<parameter name="p_rango" class="java.lang.String"/>
+	<parameter name="p_fecha" class="java.util.Date"/>
+	<parameter name="p_registro" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT t.nombre_tripulante, n.nombre_nave
+FROM tripulantes t
+LEFT JOIN naves_espaciales n ON n.id_nave = t.id_nave
+WHERE t.rango = $P{p_rango}
+ORDER BY n.nombre_nave, t.nombre_tripulante]]>
+	</queryString>
+	<field name="nombre_tripulante" class="java.lang.String"/>
+	<field name="nombre_nave" class="java.lang.String"/>
+	<variable name="v_total_tripulantes" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{nombre_tripulante}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="62">
+			<staticText>
+				<reportElement x="0" y="8" width="555" height="28" uuid="4c3c7c9e-02b0-4db6-9b0c-ef2a2f1b2010"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRIPULACIÓN POR RANGO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="40" width="555" height="18" uuid="4c3c7c9e-02b0-4db6-9b0c-ef2a2f1b2011"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Rango: " + $P{p_rango}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="315" height="26" forecolor="#FFFFFF" backcolor="#103370" uuid="4c3c7c9e-02b0-4db6-9b0c-ef2a2f1b2020"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE TRIPULANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="315" y="0" width="240" height="26" forecolor="#FFFFFF" backcolor="#103370" uuid="4c3c7c9e-02b0-4db6-9b0c-ef2a2f1b2021"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAVE ASIGNADA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22">
+			<textField>
+				<reportElement x="0" y="0" width="315" height="22" uuid="4c3c7c9e-02b0-4db6-9b0c-ef2a2f1b2030"/>
+				<box leftPadding="6">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{nombre_tripulante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="315" y="0" width="240" height="22" uuid="4c3c7c9e-02b0-4db6-9b0c-ef2a2f1b2031"/>
+				<box leftPadding="6">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{nombre_nave} == null ? "Sin asignar" : $F{nombre_nave}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="40">
+			<staticText>
+				<reportElement x="0" y="10" width="220" height="18" uuid="4c3c7c9e-02b0-4db6-9b0c-ef2a2f1b2040"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total tripulantes en el rango:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="220" y="10" width="80" height="18" uuid="4c3c7c9e-02b0-4db6-9b0c-ef2a2f1b2041"/>
+				<textFieldExpression><![CDATA[$V{v_total_tripulantes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

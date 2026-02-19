@@ -10,8 +10,11 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.Box;
@@ -27,13 +30,23 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 
 public class VentanaBotones extends JFrame{
 	private JPanel contentPane;
@@ -106,9 +119,9 @@ public class VentanaBotones extends JFrame{
         // Nombres de JRXML esperados en src/informes/
         // (Cámbialos si tus archivos se llaman distinto)
         b1.addActionListener(e -> lanzarInforme("listado_naves.jrxml", null));
-        b2.addActionListener(e -> lanzarInforme("listado_tripulantes.jrxml", null));
+        b2.addActionListener(e -> lanzarInformeTripulantesDesdeJava());
         b3.addActionListener(e -> lanzarInforme("tripulacionPorNave.jrxml", null));
-        b4.addActionListener(e -> lanzarInforme("misiones_por_estado.jrxml", null));
+        b4.addActionListener(e -> lanzarInformeMisionesPorEstadoDesdeJava());
         b7.addActionListener(e -> lanzarInforme("graf_misiones_estado.jrxml", null));
         b8.addActionListener(e -> lanzarInforme("graf_tripulantes_rango.jrxml", null));
 
@@ -129,7 +142,7 @@ public class VentanaBotones extends JFrame{
 
             Map<String, Object> p = new HashMap<>();
             p.put("p_id_nave", idNave);
-            lanzarInforme("misiones_de_una_nave.jrxml", p);
+            lanzarInforme("misionesDeUnaNave.jrxml", p);
         });
 
         // Dinámico 6: Tripulación por rango
@@ -140,10 +153,9 @@ public class VentanaBotones extends JFrame{
                 return;
             }
 
-            // Opcional: validar valores permitidos
-            if (!rango.equalsIgnoreCase("Capitán") &&
-                !rango.equalsIgnoreCase("Ingeniero") &&
-                !rango.equalsIgnoreCase("Piloto")) {
+            String rangoNormalizado = normalizarRango(rango);
+
+            if (rangoNormalizado == null) {
                 JOptionPane.showMessageDialog(this, "Rango no válido. Usa: Capitán, Ingeniero o Piloto.");
                 return;
             }
@@ -152,7 +164,7 @@ public class VentanaBotones extends JFrame{
             // Respeta la acentuación tal cual la tengas en BBDD
             // (si en BBDD guardas "Capitan" sin tilde, ajusta aquí)
             p.put("p_rango", normalizarRango(rango));
-            lanzarInforme("tripulacion_por_rango.jrxml", p);
+            lanzarInforme("tripulacionPorRango.jrxml", p);
         });
     }
 
@@ -162,7 +174,7 @@ public class VentanaBotones extends JFrame{
         if (r.equals("capitán") || r.equals("capitan")) return "Capitán";
         if (r.equals("ingeniero")) return "Ingeniero";
         if (r.equals("piloto")) return "Piloto";
-        return rango;
+        return null;
     }
 
     private JTextField crearCampoInput(String placeholder) {
@@ -230,6 +242,7 @@ public class VentanaBotones extends JFrame{
                     "root",
                     ""
             );
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error BD: " + e.getMessage());
         }
@@ -263,6 +276,8 @@ public class VentanaBotones extends JFrame{
 
             JasperReport report = JasperCompileManager.compileReport(path);
             JasperPrint print = JasperFillManager.fillReport(report, parametros, conexion);
+            System.out.println("Informe: " + jrxml + " pages=" + print.getPages().size());
+
 
             // Ver
             JasperViewer.viewReport(print, false);
@@ -276,6 +291,168 @@ public class VentanaBotones extends JFrame{
             JOptionPane.showMessageDialog(this, "Error de Jasper: " + e.getMessage());
         }
     }
+
+    public class TripulanteInfo {
+        private final String nombre_tripulante;
+        private final String rango;
+        private final String nombre_nave;
+
+        public TripulanteInfo(String nombre_tripulante, String rango, String nombre_nave) {
+            this.nombre_tripulante = nombre_tripulante;
+            this.rango = rango;
+            this.nombre_nave = nombre_nave;
+        }
+
+        public String getNombre_tripulante() { return nombre_tripulante; }
+        public String getRango() { return rango; }
+        public String getNombre_nave() { return nombre_nave; }
+    }
+
+    
+    private JRDataSource cargarTripulantesDS() throws Exception {
+        String sql =
+            "SELECT t.nombre_tripulante, t.rango, n.nombre_nave " +
+            "FROM tripulantes t " +
+            "LEFT JOIN naves_espaciales n ON n.id_nave = t.id_nave " +
+            "ORDER BY t.rango, t.nombre_tripulante";
+
+        List<TripulanteInfo> lista = new ArrayList<>();
+
+        try (PreparedStatement ps = conexion.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                String nombre = rs.getString("nombre_tripulante");
+                String rango  = rs.getString("rango");
+                String nave   = rs.getString("nombre_nave");
+                if (nave == null) nave = "Sin asignar";
+
+                lista.add(new TripulanteInfo(nombre, rango, nave));
+            }
+        }
+
+
+        return new JRBeanCollectionDataSource(lista);
+        
+    }
+    
+    private void lanzarInformeTripulantesDesdeJava() {
+        if (conexion == null) {
+            JOptionPane.showMessageDialog(this, "No hay conexión a la base de datos.");
+            return;
+        }
+
+        try {
+            String jrxml = "listadoTripulantes.jrxml";
+            String path = RUTA_INFORMES + jrxml;
+
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("p_fecha", new Date());
+            parametros.put("p_registro", "REG-" + System.currentTimeMillis());
+
+            JasperReport report = JasperCompileManager.compileReport(path);
+
+            JRDataSource ds = cargarTripulantesDS();
+
+            JasperPrint print = JasperFillManager.fillReport(report, parametros, ds);
+
+            JasperViewer.viewReport(print, false);
+
+            String out = RUTA_INFORMES + jrxml.replace(".jrxml", ".pdf");
+            JasperExportManager.exportReportToPdfFile(print, out);
+
+            JOptionPane.showMessageDialog(this, "Informe generado:\n" + out);
+            
+
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    //segundo informe por java:
+    public class MisionEstadoInfo {
+        private final String estado;
+        private final String descripcion;
+        private final String nombre_nave;
+
+        public MisionEstadoInfo(String estado, String descripcion, String nombre_nave) {
+            this.estado = estado;
+            this.descripcion = descripcion;
+            this.nombre_nave = nombre_nave;
+        }
+
+        public String getEstado() { return estado; }
+        public String getDescripcion() { return descripcion; }
+        public String getNombre_nave() { return nombre_nave; }
+    }
+    
+    private JRDataSource cargarMisionesPorEstadoDS() throws Exception {
+        String sql =
+            "SELECT m.estado, m.descripcion, n.nombre_nave " +
+            "FROM misiones m " +
+            "LEFT JOIN naves_espaciales n ON n.id_nave = m.id_nave " +
+            "ORDER BY m.estado, n.nombre_nave, m.descripcion";
+
+        List<MisionEstadoInfo> lista = new ArrayList<>();
+
+        try (PreparedStatement ps = conexion.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                String estado = rs.getString("estado");
+                String desc   = rs.getString("descripcion");
+                String nave   = rs.getString("nombre_nave");
+                if (nave == null) nave = "Sin asignar";
+                lista.add(new MisionEstadoInfo(estado, desc, nave));
+            }
+        }
+
+        System.out.println("Filas datasource misiones: " + lista.size());
+        return new JRBeanCollectionDataSource(lista);
+    }
+    
+    private void lanzarInformeMisionesPorEstadoDesdeJava() {
+        if (conexion == null) {
+            JOptionPane.showMessageDialog(this, "No hay conexión a la base de datos.");
+            return;
+        }
+
+        try {
+            String jrxml = "misionesPorEstado.jrxml";
+            String path = RUTA_INFORMES + jrxml;
+
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("p_fecha", new Date());
+            parametros.put("p_registro", "REG-" + System.currentTimeMillis());
+
+            JasperReport report = JasperCompileManager.compileReport(path);
+
+            JRDataSource ds = cargarMisionesPorEstadoDS();
+
+            JasperPrint print = JasperFillManager.fillReport(report, parametros, ds);
+
+            if (print.getPages().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Informe generado pero sin páginas.");
+                return;
+            }
+
+            JasperViewer.viewReport(print, false);
+
+            String out = RUTA_INFORMES + jrxml.replace(".jrxml", ".pdf");
+            JasperExportManager.exportReportToPdfFile(print, out);
+
+            JOptionPane.showMessageDialog(this, "Informe generado:\n" + out);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
