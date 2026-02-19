@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="graf_misiones_estado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d4a7f3cc-1a35-4cdd-8c72-1b5e2bdc1001">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FlotaEspacial"/>
+	<parameter name="p_fecha" class="java.util.Date"/>
+	<parameter name="p_registro" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT estado, COUNT(*) AS total
+FROM misiones
+GROUP BY estado
+ORDER BY total DESC]]>
+	</queryString>
+	<field name="estado" class="java.lang.String"/>
+	<field name="total" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="8" width="555" height="28" uuid="d4a7f3cc-1a35-4cdd-8c72-1b5e2bdc1010"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRÁFICO: MISIONES POR ESTADO]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement x="0" y="42" width="200" height="16" uuid="d4a7f3cc-1a35-4cdd-8c72-1b5e2bdc1011"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="6" width="200" height="16" uuid="d4a7f3cc-1a35-4cdd-8c72-1b5e2bdc10f1"/>
+				<textFieldExpression><![CDATA["Pág. " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="420" splitType="Stretch">
+			<barChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="10" width="555" height="380" uuid="d4a7f3cc-1a35-4cdd-8c72-1b5e2bdc1020"/>
+					<chartTitle>
+						<font isBold="true"/>
+						<titleExpression><![CDATA["Misiones por estado"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Misiones"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{estado}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{total}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisLabelExpression><![CDATA["Estado"]]></categoryAxisLabelExpression>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Total"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>

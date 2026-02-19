@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="graf_tripulantes_rango" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2f9a1b1-3c2a-4c1a-9e77-1111a2b3c4d5">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FlotaEspacial"/>
+	<queryString>
+		<![CDATA[SELECT rango, COUNT(*) AS total
+FROM tripulantes
+GROUP BY rango
+ORDER BY total DESC]]>
+	</queryString>
+	<field name="rango" class="java.lang.String"/>
+	<field name="total" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="8" width="555" height="28" uuid="a2f9a1b1-3c2a-4c1a-9e77-2222a2b3c4d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRÁFICO: TRIPULANTES POR RANGO]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement x="0" y="42" width="555" height="16" uuid="a2f9a1b1-3c2a-4c1a-9e77-3333a2b3c4d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="6" width="200" height="16" uuid="a2f9a1b1-3c2a-4c1a-9e77-4444a2b3c4d5"/>
+				<textFieldExpression><![CDATA["Pág. " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="420" splitType="Stretch">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="10" width="555" height="380" uuid="a2f9a1b1-3c2a-4c1a-9e77-5555a2b3c4d5"/>
+					<chartTitle>
+						<font isBold="true"/>
+						<titleExpression><![CDATA["Distribución de tripulantes por rango"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{rango}]]></keyExpression>
+					<valueExpression><![CDATA[$F{total}]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>

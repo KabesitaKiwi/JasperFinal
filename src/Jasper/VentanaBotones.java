@@ -122,8 +122,8 @@ public class VentanaBotones extends JFrame{
         b2.addActionListener(e -> lanzarInformeTripulantesDesdeJava());
         b3.addActionListener(e -> lanzarInforme("tripulacionPorNave.jrxml", null));
         b4.addActionListener(e -> lanzarInformeMisionesPorEstadoDesdeJava());
-        b7.addActionListener(e -> lanzarInforme("graf_misiones_estado.jrxml", null));
-        b8.addActionListener(e -> lanzarInforme("graf_tripulantes_rango.jrxml", null));
+        b7.addActionListener(e -> lanzarInforme("grafico1.jrxml", null));
+        b8.addActionListener(e -> lanzarInforme("graficoQuesitos.jrxml", null));
 
         // Dinámico 5: Misiones de una nave
         b5.addActionListener(e -> {
