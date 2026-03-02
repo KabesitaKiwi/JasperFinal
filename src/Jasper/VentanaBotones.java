@@ -10,6 +10,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,14 +21,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.help.HelpSetException;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -75,6 +84,7 @@ public class VentanaBotones extends JFrame{
         contentPane.setBorder(new EmptyBorder(25, 25, 25, 25));
         contentPane.setLayout(null);
         setContentPane(contentPane);
+        crearMenu();
 
         conectarBaseDatos();
 
@@ -531,6 +541,37 @@ public class VentanaBotones extends JFrame{
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+    
+    private void crearMenu(){
+    	JMenuBar menuBar = new JMenuBar();
+
+        JMenu menuAyuda = new JMenu("Ayuda");
+        JMenuItem itemVerAyuda = new JMenuItem("Ver ayuda");
+
+        itemVerAyuda.addActionListener(e -> ayuda());
+
+        menuAyuda.add(itemVerAyuda);
+        menuBar.add(menuAyuda);
+
+        setJMenuBar(menuBar);
+    }
+    
+    private void ayuda() {
+    	 try {
+            java.net.URL hsURL = getClass().getResource("/help/help_set.hs");
+            if (hsURL == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró /help/help_set.hs");
+            return;
+        }
+
+            javax.help.HelpSet hs = new javax.help.HelpSet(getClass().getClassLoader(), hsURL);
+            javax.help.HelpBroker hb = hs.createHelpBroker();
+
+            hb.setDisplayed(true); // Solo se abre al hacer click
+        } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error JavaHelp: " + ex.getMessage());
         }
     }
 

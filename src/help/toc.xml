@@ -1,0 +1,6 @@
+<toc version="1.0"> 
+	<tocitem text="Pantalla Principal" target="Pantalla1">
+		<tocitem text="Segunda Pantalla"    target="Pantalla2" />
+		<tocitem text="Ultima Pantalla"    target="Pantalla3"/>
+	</tocitem>
+</toc>
