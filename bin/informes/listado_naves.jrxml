@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformeFlotaEspacial" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e3d6411d-3717-4835-9764-1e07b3f94563">
+	<queryString>
+		<![CDATA[SELECT id_nave, nombre_nave, clase, capacidad_tripulacion FROM naves_espaciales ORDER BY clase ASC, nombre_nave ASC]]>
+	</queryString>
+	<field name="id_nave" class="java.lang.Integer"/>
+	<field name="nombre_nave" class="java.lang.String"/>
+	<field name="clase" class="java.lang.String"/>
+	<field name="capacidad_tripulacion" class="java.lang.Integer"/>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="40" uuid="a5341f22-386f-4770-802c-474c76741762"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE GENERAL: FLOTA ESPACIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="555" height="20" uuid="bc8d90e6-5917-4638-958b-960249c5e32c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Lista General de la Flota]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="60" height="30" forecolor="#FFFFFF" backcolor="#103370" uuid="0656a877-66a9-4506-9391-450702484461"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="60" y="0" width="220" height="30" forecolor="#FFFFFF" backcolor="#103370" uuid="b56c6691-e8d1-419b-9805-4c0841753238"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DE LA NAVE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="0" width="140" height="30" forecolor="#FFFFFF" backcolor="#103370" uuid="1673322d-621b-4f40-8f92-56363842407d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLASE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="420" y="0" width="135" height="30" forecolor="#FFFFFF" backcolor="#103370" uuid="4668388b-1579-4458-97f3-c59129598822"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CAPACIDAD MÁX.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="60" height="25" uuid="8b7d90e6-5917-4638-958b-960249c5e32b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_nave}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="220" height="25" uuid="d76e65b2-3067-4581-9f93-41c034934149"/>
+				<box leftPadding="8">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_nave}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="140" height="25" uuid="1e813956-f6d3-487b-a249-14a044738743"/>
+				<box leftPadding="8">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{clase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="0" width="135" height="25" uuid="39c065f4-386f-4770-802c-474c76741762"/>
+				<box rightPadding="8">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{capacidad_tripulacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement x="0" y="10" width="150" height="20" uuid="766e65b2-3067-4581-9f93-41c034934149"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="10" width="80" height="20" uuid="42813956-f6d3-487b-a249-14a044738743"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["Pág. " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="510" y="10" width="40" height="20" uuid="29c065f4-386f-4770-802c-474c76741762"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

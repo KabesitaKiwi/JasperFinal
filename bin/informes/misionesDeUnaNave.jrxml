@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="misiones_de_una_nave" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6d2c2a4f-7d4a-4e0a-a0d6-44b3c4ab1001">
+	<parameter name="p_id_nave" class="java.lang.Integer"/>
+	<parameter name="p_fecha" class="java.util.Date"/>
+	<parameter name="p_registro" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT m.descripcion, m.estado, n.nombre_nave
+FROM misiones m
+JOIN naves_espaciales n ON n.id_nave = m.id_nave
+WHERE m.id_nave = $P{p_id_nave}
+ORDER BY m.estado, m.descripcion]]>
+	</queryString>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="nombre_nave" class="java.lang.String"/>
+	<variable name="v_total_completadas" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{estado} != null && $F{estado}.equalsIgnoreCase("Completada") ? 1 : 0]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="v_total_fallidas" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{estado} != null && ($F{estado}.equalsIgnoreCase("Fallida") || $F{estado}.equalsIgnoreCase("Fallido")) ? 1 : 0]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="70">
+			<staticText>
+				<reportElement x="0" y="8" width="555" height="28" uuid="6d2c2a4f-7d4a-4e0a-a0d6-44b3c4ab1010"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MISIONES DE UNA NAVE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="40" width="555" height="18" uuid="6d2c2a4f-7d4a-4e0a-a0d6-44b3c4ab1011"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["ID nave: " + $P{p_id_nave} + " | " + $F{nombre_nave}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="385" height="26" forecolor="#FFFFFF" backcolor="#103370" uuid="6d2c2a4f-7d4a-4e0a-a0d6-44b3c4ab1020"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="385" y="0" width="170" height="26" forecolor="#FFFFFF" backcolor="#103370" uuid="6d2c2a4f-7d4a-4e0a-a0d6-44b3c4ab1021"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22">
+			<textField>
+				<reportElement x="0" y="0" width="385" height="22" uuid="6d2c2a4f-7d4a-4e0a-a0d6-44b3c4ab1030"/>
+				<box leftPadding="6">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="0" width="170" height="22" uuid="6d2c2a4f-7d4a-4e0a-a0d6-44b3c4ab1031"/>
+				<box leftPadding="6">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="55">
+			<staticText>
+				<reportElement x="0" y="10" width="220" height="18" uuid="6d2c2a4f-7d4a-4e0a-a0d6-44b3c4ab1040"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total completadas:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="220" y="10" width="80" height="18" uuid="6d2c2a4f-7d4a-4e0a-a0d6-44b3c4ab1041"/>
+				<textFieldExpression><![CDATA[$V{v_total_completadas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="220" height="18" uuid="6d2c2a4f-7d4a-4e0a-a0d6-44b3c4ab1042"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total fallidas:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="220" y="30" width="80" height="18" uuid="6d2c2a4f-7d4a-4e0a-a0d6-44b3c4ab1043"/>
+				<textFieldExpression><![CDATA[$V{v_total_fallidas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

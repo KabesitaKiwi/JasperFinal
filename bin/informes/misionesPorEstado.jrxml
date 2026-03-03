@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="misiones_por_estado_java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2e84ef19-2b2f-4e06-8f8e-7b52d7a8c001">
+	<parameter name="p_fecha" class="java.util.Date"/>
+	<parameter name="p_registro" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="nombre_nave" class="java.lang.String"/>
+	<group name="gEstado">
+		<groupExpression><![CDATA[$F{estado}]]></groupExpression>
+		<groupHeader>
+			<band height="28">
+				<staticText>
+					<reportElement x="0" y="0" width="90" height="24" uuid="2e84ef19-2b2f-4e06-8f8e-7b52d7a8c010"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[ESTADO:]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="90" y="0" width="465" height="24" backcolor="#E6EEF9" uuid="2e84ef19-2b2f-4e06-8f8e-7b52d7a8c011"/>
+					<box leftPadding="6">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="58">
+			<staticText>
+				<reportElement x="0" y="8" width="555" height="28" uuid="2e84ef19-2b2f-4e06-8f8e-7b52d7a8c020"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MISIONES POR ESTADO]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement x="0" y="40" width="200" height="16" uuid="2e84ef19-2b2f-4e06-8f8e-7b52d7a8c021"/>
+				<textFieldExpression><![CDATA[$P{p_fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="40" width="200" height="16" uuid="2e84ef19-2b2f-4e06-8f8e-7b52d7a8c022"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{p_registro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="355" height="26" forecolor="#FFFFFF" backcolor="#103370" uuid="2e84ef19-2b2f-4e06-8f8e-7b52d7a8c030"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCIÓN DE LA MISIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="355" y="0" width="200" height="26" forecolor="#FFFFFF" backcolor="#103370" uuid="2e84ef19-2b2f-4e06-8f8e-7b52d7a8c031"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAVE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22">
+			<textField>
+				<reportElement x="0" y="0" width="355" height="22" uuid="2e84ef19-2b2f-4e06-8f8e-7b52d7a8c040"/>
+				<box leftPadding="6">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="200" height="22" uuid="2e84ef19-2b2f-4e06-8f8e-7b52d7a8c041"/>
+				<box leftPadding="6">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_nave}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="22">
+			<textField>
+				<reportElement x="0" y="6" width="200" height="16" uuid="2e84ef19-2b2f-4e06-8f8e-7b52d7a8c050"/>
+				<textFieldExpression><![CDATA["Pág. " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

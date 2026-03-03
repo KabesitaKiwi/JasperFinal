@@ -1,0 +1,21 @@
+<index version="1.0">
+    <indexitem text="Inicio" target="inicio"/>
+    
+    <indexitem text="Listado de naves" target="listado_naves"/>
+    <indexitem text="Naves" target="listado_naves"/>
+    
+    <indexitem text="Listado de tripulantes" target="listado_tripulantes"/>
+    <indexitem text="Tripulantes" target="listado_tripulantes"/>
+    
+    <indexitem text="Tripulación por nave" target="tripulacion_por_nave"/>
+    <indexitem text="Misiones por estado" target="misiones_por_estado"/>
+    
+    <indexitem text="Misiones de una nave" target="misiones_de_una_nave"/>
+    <indexitem text="ID nave" target="misiones_de_una_nave"/>
+    
+    <indexitem text="Tripulación por rango" target="tripulacion_por_rango"/>
+    <indexitem text="Rango" target="tripulacion_por_rango"/>
+    
+    <indexitem text="Gráfico barras" target="grafico_barras"/>
+    <indexitem text="Gráfico quesitos" target="grafico_quesitos"/>
+</index>

@@ -1,0 +1,33 @@
+<html>
+<head><meta charset="UTF-8"><title>2 - Listado de tripulantes</title></head>
+<body>
+<h1>2 - Listado de tripulantes</h1>
+<p>Genera un informe con el listado de tripulantes, incluyendo la nave asignada.</p>
+
+<h2>Qué hace</h2>
+<ul>
+  <li>Ejecuta una consulta en Java (PreparedStatement) para obtener tripulantes + nave.</li>
+  <li>Crea un <b>JRBeanCollectionDataSource</b> con objetos TripulanteInfo.</li>
+  <li>Rellena el JRXML usando el datasource (sin conexión directa en Jasper).</li>
+  <li>Abre visor y exporta a PDF.</li>
+</ul>
+
+<h2>JRXML</h2>
+<ul>
+  <li><b>listadoTripulantes.jrxml</b></li>
+</ul>
+
+<h2>Datos / Campos</h2>
+<ul>
+  <li>nombre_tripulante</li>
+  <li>rango</li>
+  <li>nombre_nave (si no tiene, aparece “Sin asignar”)</li>
+</ul>
+
+<h2>Parámetros</h2>
+<ul>
+  <li><b>p_fecha</b>: fecha actual</li>
+  <li><b>p_registro</b>: código REG-...</li>
+</ul>
+</body>
+</html>

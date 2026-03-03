@@ -1,0 +1,38 @@
+<html>
+<head><meta charset="UTF-8"><title>5 - Misiones de una nave (por ID)</title></head>
+<body>
+<h1>5 - Misiones de una nave (por ID)</h1>
+<p>Genera un informe con las misiones filtradas por una nave concreta.</p>
+
+<h2>Qué hace</h2>
+<ul>
+  <li>Lee el valor del campo de texto <b>ID nave</b> (a la derecha del botón).</li>
+  <li>Valida que sea un número.</li>
+  <li>Envía el parámetro <b>p_id_nave</b> al reporte.</li>
+  <li>Rellena el JRXML con la <b>conexión JDBC</b>.</li>
+  <li>Abre visor y exporta a PDF.</li>
+</ul>
+
+<h2>JRXML</h2>
+<ul>
+  <li><b>misionesDeUnaNave.jrxml</b></li>
+</ul>
+
+<h2>Parámetro obligatorio</h2>
+<ul>
+  <li><b>p_id_nave</b>: ID de la nave (entero)</li>
+</ul>
+
+<h2>Parámetros adicionales</h2>
+<ul>
+  <li><b>p_fecha</b>: fecha actual</li>
+  <li><b>p_registro</b>: código REG-...</li>
+</ul>
+
+<h2>Errores comunes</h2>
+<ul>
+  <li>Si el campo está vacío: pide “Introduce el ID de la nave”.</li>
+  <li>Si no es número: “ID de nave no válido”.</li>
+</ul>
+</body>
+</html>

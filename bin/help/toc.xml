@@ -1,0 +1,14 @@
+<toc version="1.0"> 
+	<tocitem text="Inicio" target="inicio"/>
+	
+	<tocitem text="Informes">
+		<tocitem text="1 - Listado de naves" target="listado_naves"/>
+		<tocitem text="2 - Listado de tripulantes" target="listado_tripulantes"/>
+		<tocitem text="3 - Tripulación por nave" target="tripulacion_por_nave"/>
+		<tocitem text="4 - Misiones por estado" target="misiones_por_estado"/>
+		<tocitem text="5 - Misiones de una nave (por ID)" target="misiones_de_una_nave"/>
+		<tocitem text="6 - Tripulación por rango" target="tripulacion_por_rango"/>
+		<tocitem text="7 - Gráfico barras" target="grafico_barras"/>
+		<tocitem text="8 - Gráfico quesitos" target="grafico_quesitos"/>
+	</tocitem>
+</toc>

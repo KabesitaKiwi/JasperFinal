@@ -1,0 +1,12 @@
+<map version="1.0">
+  <mapID target="inicio" url="html/inicio.html"/>
+
+  <mapID target="listado_naves" url="html/listado_naves.html"/>
+  <mapID target="listado_tripulantes" url="html/listado_tripulantes.html"/>
+  <mapID target="tripulacion_por_nave" url="html/tripulacionPorNave.html"/>
+  <mapID target="misiones_por_estado" url="html/misionesPorEstado.html"/>
+  <mapID target="misiones_de_una_nave" url="html/misionesDeUnaNave.html"/>
+  <mapID target="tripulacion_por_rango" url="html/tripulacionPorRango.html"/>
+  <mapID target="grafico_barras" url="html/graficoBarras.html"/>
+  <mapID target="grafico_quesitos" url="html/graficoQuesitos.html"/>
+</map>
