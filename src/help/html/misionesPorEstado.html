@@ -1,0 +1,33 @@
+<html>
+<head><meta charset="UTF-8"><title>4 - Misiones por estado</title></head>
+<body>
+<h1>4 - Misiones por estado</h1>
+<p>Genera un informe que lista misiones agrupadas o ordenadas por estado, incluyendo la nave asociada.</p>
+
+<h2>Qué hace</h2>
+<ul>
+  <li>Ejecuta una consulta en Java para obtener: estado, descripción y nombre de nave.</li>
+  <li>Crea un <b>JRBeanCollectionDataSource</b> con objetos MisionEstadoInfo.</li>
+  <li>Rellena el JRXML con el datasource.</li>
+  <li>Abre visor y exporta a PDF.</li>
+</ul>
+
+<h2>JRXML</h2>
+<ul>
+  <li><b>misionesPorEstado.jrxml</b></li>
+</ul>
+
+<h2>Datos / Campos</h2>
+<ul>
+  <li>estado</li>
+  <li>descripcion</li>
+  <li>nombre_nave (si no tiene, aparece “Sin asignar”)</li>
+</ul>
+
+<h2>Parámetros</h2>
+<ul>
+  <li><b>p_fecha</b>: fecha actual</li>
+  <li><b>p_registro</b>: código REG-...</li>
+</ul>
+</body>
+</html>

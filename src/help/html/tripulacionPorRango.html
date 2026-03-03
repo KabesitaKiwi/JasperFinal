@@ -1,0 +1,39 @@
+<!-- src/help/btn6_tripulacion_por_rango.html -->
+<html>
+<head><meta charset="UTF-8"><title>6 - Tripulación por rango</title></head>
+<body>
+<h1>6 - Tripulación por rango</h1>
+<p>Genera un informe de tripulantes filtrado por rango.</p>
+
+<h2>Qué hace</h2>
+<ul>
+  <li>Lee el valor del campo de texto <b>Rango</b> (a la derecha del botón).</li>
+  <li>Normaliza el texto (acepta “capitan” o “capitán”).</li>
+  <li>Si el rango es válido, manda el parámetro <b>p_rango</b> al reporte.</li>
+  <li>Rellena el JRXML con la <b>conexión JDBC</b>.</li>
+  <li>Abre visor y exporta a PDF.</li>
+</ul>
+
+<h2>JRXML</h2>
+<ul>
+  <li><b>tripulacionPorRango.jrxml</b></li>
+</ul>
+
+<h2>Parámetro obligatorio</h2>
+<ul>
+  <li><b>p_rango</b>: “Capitán”, “Ingeniero” o “Piloto”</li>
+</ul>
+
+<h2>Parámetros adicionales</h2>
+<ul>
+  <li><b>p_fecha</b>: fecha actual</li>
+  <li><b>p_registro</b>: código REG-...</li>
+</ul>
+
+<h2>Errores comunes</h2>
+<ul>
+  <li>Campo vacío: “Introduce un rango …”</li>
+  <li>Rango inválido: “Rango no válido …”</li>
+</ul>
+</body>
+</html>

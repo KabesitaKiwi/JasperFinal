@@ -1,13 +1,12 @@
 <map version="1.0">
-   <mapID target="inicio" url="inicio.html"/>
+  <mapID target="inicio" url="html/inicio.html"/>
 
-    <mapID target="btn1_listado_naves" url="btn1_listado_naves.html"/>
-    <mapID target="btn2_listado_tripulantes" url="btn2_listado_tripulantes.html"/>
-    <mapID target="btn3_tripulacion_por_nave" url="btn3_tripulacion_por_nave.html"/>
-    <mapID target="btn4_misiones_por_estado" url="btn4_misiones_por_estado.html"/>
-    <mapID target="btn5_misiones_de_una_nave" url="btn5_misiones_de_una_nave.html"/>
-    <mapID target="btn6_tripulacion_por_rango" url="btn6_tripulacion_por_rango.html"/>
-    <mapID target="btn7_grafico_barras" url="btn7_grafico_barras.html"/>
-    <mapID target="btn8_grafico_quesitos" url="btn8_grafico_quesitos.html"/>
-    
+  <mapID target="listado_naves" url="html/listado_naves.html"/>
+  <mapID target="listado_tripulantes" url="html/listado_tripulantes.html"/>
+  <mapID target="tripulacion_por_nave" url="html/tripulacionPorNave.html"/>
+  <mapID target="misiones_por_estado" url="html/misionesPorEstado.html"/>
+  <mapID target="misiones_de_una_nave" url="html/misionesDeUnaNave.html"/>
+  <mapID target="tripulacion_por_rango" url="html/tripulacionPorRango.html"/>
+  <mapID target="grafico_barras" url="html/graficoBarras.html"/>
+  <mapID target="grafico_quesitos" url="html/graficoQuesitos.html"/>
 </map>

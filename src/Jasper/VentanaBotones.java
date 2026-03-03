@@ -71,7 +71,15 @@ public class VentanaBotones extends JFrame{
     private final Color colorTitulo = new Color(153, 0, 76);
 
 
-    private static final String RUTA_INFORMES = "src/informes/";
+    private static final String RUTA_INFORMES = "/informes/";
+    
+    private JasperReport compilarDesdeRecurso(String jrxml) throws Exception {
+        String recurso = RUTA_INFORMES + jrxml;
+        try (var in = getClass().getResourceAsStream(recurso)) {
+            if (in == null) throw new java.io.FileNotFoundException("No se encontró: " + recurso);
+            return JasperCompileManager.compileReport(in);
+        }
+    }
 
     public VentanaBotones() {
         setTitle("Flota Espacial - Informes (Jasper + Java)");
@@ -358,30 +366,33 @@ public class VentanaBotones extends JFrame{
         }
 
         try {
-            String path = RUTA_INFORMES + jrxml;
             System.setProperty("net.sf.jasperreports.compiler.classpath", System.getProperty("java.class.path"));
 
             Map<String, Object> parametros = new HashMap<>();
-
             parametros.put("p_fecha", new Date());
             parametros.put("p_registro", "REG-" + System.currentTimeMillis());
-
             if (paramsExtra != null) parametros.putAll(paramsExtra);
 
-            JasperReport report = JasperCompileManager.compileReport(path);
+            // Compilar JRXML desde recurso dentro del JAR
+            JasperReport report = compilarDesdeRecurso(jrxml);
+
             JasperPrint print = JasperFillManager.fillReport(report, parametros, conexion);
-            System.out.println("Informe: " + jrxml + " pages=" + print.getPages().size());
-
-
             JasperViewer.viewReport(print, false);
 
-            // PDF
-            String out = RUTA_INFORMES + jrxml.replace(".jrxml", ".pdf");
-            JasperExportManager.exportReportToPdfFile(print, out);
+            // Guardar PDF en carpeta "informes" (se crea si no existe) en el directorio desde el que ejecutas el JAR
+            java.nio.file.Path outDir = java.nio.file.Paths.get("informes");
+            java.nio.file.Files.createDirectories(outDir);
 
-            JOptionPane.showMessageDialog(this, "Informe generado:\n" + out);
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(this, "Error de Jasper: " + e.getMessage());
+            String pdfName = jrxml.replace(".jrxml", ".pdf");
+            java.nio.file.Path outPdf = outDir.resolve(pdfName);
+
+            JasperExportManager.exportReportToPdfFile(print, outPdf.toString());
+
+            JOptionPane.showMessageDialog(this, "Informe generado:\n" + outPdf.toAbsolutePath());
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -428,7 +439,15 @@ public class VentanaBotones extends JFrame{
         return new JRBeanCollectionDataSource(lista);
         
     }
+    private static final String INFORMES_SALIDA_DIR = "informes"; // carpeta en disco para PDFs
     
+    private JasperReport compilarJRXMLRecurso(String jrxml) throws Exception {
+        String recurso = RUTA_INFORMES + jrxml;
+        try (var in = getClass().getResourceAsStream(recurso)) {
+            if (in == null) throw new java.io.FileNotFoundException("No se encontró el recurso: " + recurso);
+            return JasperCompileManager.compileReport(in);
+        }
+    }
     private void lanzarInformeTripulantesDesdeJava() {
         if (conexion == null) {
             JOptionPane.showMessageDialog(this, "No hay conexión a la base de datos.");
@@ -443,7 +462,7 @@ public class VentanaBotones extends JFrame{
             parametros.put("p_fecha", new Date());
             parametros.put("p_registro", "REG-" + System.currentTimeMillis());
 
-            JasperReport report = JasperCompileManager.compileReport(path);
+            JasperReport report = compilarJRXMLRecurso(jrxml);
 
             JRDataSource ds = cargarTripulantes();
 
@@ -451,10 +470,13 @@ public class VentanaBotones extends JFrame{
 
             JasperViewer.viewReport(print, false);
 
-            String out = RUTA_INFORMES + jrxml.replace(".jrxml", ".pdf");
-            JasperExportManager.exportReportToPdfFile(print, out);
+            java.nio.file.Path outDir = java.nio.file.Paths.get(INFORMES_SALIDA_DIR);
+            java.nio.file.Files.createDirectories(outDir);
 
-            JOptionPane.showMessageDialog(this, "Informe generado:\n" + out);
+            java.nio.file.Path outPdf = outDir.resolve(jrxml.replace(".jrxml", ".pdf"));
+            JasperExportManager.exportReportToPdfFile(print, outPdf.toString());
+
+            JOptionPane.showMessageDialog(this, "Informe generado:\n" + outPdf.toAbsolutePath());
             
 
 
@@ -520,7 +542,7 @@ public class VentanaBotones extends JFrame{
             parametros.put("p_fecha", new Date());
             parametros.put("p_registro", "REG-" + System.currentTimeMillis());
 
-            JasperReport report = JasperCompileManager.compileReport(path);
+            JasperReport report = compilarJRXMLRecurso(jrxml);
 
             JRDataSource ds = cargarMisionesPorEstado();
 
@@ -533,10 +555,13 @@ public class VentanaBotones extends JFrame{
 
             JasperViewer.viewReport(print, false);
 
-            String out = RUTA_INFORMES + jrxml.replace(".jrxml", ".pdf");
-            JasperExportManager.exportReportToPdfFile(print, out);
+            java.nio.file.Path outDir = java.nio.file.Paths.get(INFORMES_SALIDA_DIR);
+            java.nio.file.Files.createDirectories(outDir);
 
-            JOptionPane.showMessageDialog(this, "Informe generado:\n" + out);
+            java.nio.file.Path outPdf = outDir.resolve(jrxml.replace(".jrxml", ".pdf"));
+            JasperExportManager.exportReportToPdfFile(print, outPdf.toString());
+
+            JOptionPane.showMessageDialog(this, "Informe generado:\n" + outPdf.toAbsolutePath());
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());

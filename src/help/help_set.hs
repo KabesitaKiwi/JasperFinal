@@ -2,7 +2,7 @@
 	<title>Flota Espacial - Ayuda</title>
 	<maps>
 		<!-- Pagina por defecto al mostrar la ayuda -->
-		<homeID>Pantalla1</homeID>
+		<homeID>inicio</homeID>
 		<!-- Que mapa deseamos -->
 		<mapref location="map_file.jhm"/>
 	</maps>
